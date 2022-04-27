@@ -1,0 +1,27 @@
+
+
+Smoothness: 1
+Architecture: QuantrupedMultiEnv_Centralized_Seek - Mean: 0.0 & 0.005 & 35.99 - Std: (0.06) & & (1.34) 
+Architecture: QuantrupedMultiEnv_FullyDecentral_Seek - Mean: 0.01 & 0.008 & 34.7 - Std: (0.07) & & (0.91) 
+Architecture: QuantrupedMultiEnv_Hierarchical_Seek - Mean: 0.01 & 0.013 & 22.18 - Std: (0.1) & & (2.42) 
+Architecture: QuantrupedMultiEnv_HierarchicalFullyDecentralized_Seek - Mean: 0.01 & 0.011 & 26.13 - Std: (0.08) & & (3.03) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchical_Seek - Mean: 0.01 & 0.018 & 21.48 - Std: (0.1) & & (1.68) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchicalFullyDecentralized_Seek - Mean: 0.01 & 0.02 & 26.08 - Std: (0.11) & & (3.68) 
+
+
+Smoothness: 0.8
+Architecture: QuantrupedMultiEnv_Centralized_Seek - Mean: 0.01 & 0.01 & 34.4 - Std: (0.09) & & (1.82) 
+Architecture: QuantrupedMultiEnv_FullyDecentral_Seek - Mean: 0.01 & 0.006 & 34.47 - Std: (0.07) & & (1.11) 
+Architecture: QuantrupedMultiEnv_Hierarchical_Seek - Mean: 0.01 & 0.009 & 21.96 - Std: (0.08) & & (1.18) 
+Architecture: QuantrupedMultiEnv_HierarchicalFullyDecentralized_Seek - Mean: 0.01 & 0.009 & 29.23 - Std: (0.08) & & (5.2) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchical_Seek - Mean: 0.01 & 0.021 & 21.62 - Std: (0.11) & & (2.54) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchicalFullyDecentralized_Seek - Mean: 0.01 & 0.01 & 25.04 - Std: (0.07) & & (3.77) 
+
+
+Smoothness: 0.6
+Architecture: QuantrupedMultiEnv_Centralized_Seek - Mean: 0.01 & 0.009 & 34.29 - Std: (0.09) & & (1.08) 
+Architecture: QuantrupedMultiEnv_FullyDecentral_Seek - Mean: 0.01 & 0.009 & 34.27 - Std: (0.09) & & (1.79) 
+Architecture: QuantrupedMultiEnv_Hierarchical_Seek - Mean: 0.02 & 0.025 & 22.69 - Std: (0.12) & & (1.3) 
+Architecture: QuantrupedMultiEnv_HierarchicalFullyDecentralized_Seek - Mean: 0.01 & 0.013 & 27.46 - Std: (0.09) & & (2.64) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchical_Seek - Mean: 0.01 & 0.011 & 20.7 - Std: (0.07) & & (1.08) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchicalFullyDecentralized_Seek - Mean: 0.01 & 0.015 & 25.97 - Std: (0.1) & & (3.31) 

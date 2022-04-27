@@ -1,0 +1,107 @@
+<mujoco model="ant">
+  <compiler angle="degree" coordinate="local" inertiafromgeom="true" />
+  <option integrator="RK4" timestep="0.01" />
+  <custom>
+    <numeric data="0.0 0.0 0.55 1.0 0.0 0.0 0.0 0.0 1.0 0.0 -1.0 0.0 -1.0 0.0 1.0" name="init_qpos" />
+  </custom>
+  <default>
+    <joint armature="1" damping="1" limited="true" />
+    <geom conaffinity="0" condim="3" density="5.0" friction="1 0.5 0.5" margin="0.01" rgba="0.8 0.6 0.4 1" />
+  </default>
+  <asset>
+    <texture builtin="gradient" height="800" mark="random" markrgb="0.3 0.4 0.5" name="skybox" rgb1=".4 .6 .8" rgb2="0 0 0" type="skybox" width="800" />
+    <texture builtin="flat" height="1278" mark="cross" markrgb="1 1 1" name="texgeom" random="0.01" rgb1="0.8 0.6 0.4" rgb2="0.8 0.6 0.4" type="cube" width="127" />
+    <texture builtin="checker" height="100" mark="edge" markrgb=".2 .5 .3" name="texplane" rgb1=".1 .3 .2" rgb2=".2 .5 .3" type="2d" width="100" />
+    <texture file="OutdoorGrassFloorD.png" height="40" name="hilltexture" type="2d" width="40" />
+    <material name="MatPlane" reflectance="0.25" shininess="1." specular="1." texrepeat="400 40" texture="texplane" />
+    <material name="geom" texture="texgeom" texuniform="true" />
+    <hfield file="hfield_flat_rect.png" name="hill" size="400 40 1.0 0.1" />
+  </asset>
+  <visual>
+    <headlight ambient=".4 .4 .4" diffuse=".8 .8 .8" specular="0.1 0.1 0.1" />
+    <map znear=".01" />
+    <quality shadowsize="2048" />
+  </visual>
+  <worldbody>
+    <light cutoff="100" diffuse="1 1 1" dir="0 0 -1" directional="true" exponent="1" mode="trackcom" pos="0 0 3" specular=".1 .1 .1" />
+    <camera fovy="45" mode="targetbody" name="sideon" pos="0 -10 5" target="torso" />
+    <camera fovy="45" mode="fixed" name="side_fixed" pos="0 -25 3" xyaxes="1 0 0 0 0 1" />
+    <camera fovy="45" mode="fixed" name="side_run" pos="10 -20 3" xyaxes="1 0 0 0 0 1" />
+    <camera euler="10 0 0" fovy="45" mode="fixed" name="top_fixed" pos="1 -8 25" />
+
+    <camera fovy="90" mode="trackcom" name="float_far" pos="-4 0 2" xyaxes="0 -1 0 .5 0 1" />
+    <geom conaffinity="1" condim="3" hfield="hill" material="MatPlane" name="floor" pos="0 0 0" rgba="0.8 0.9 0.8 1" size="400 40 0.1" type="hfield" />
+
+    <body name="torso" pos="0 0 0.75">
+      <camera mode="trackcom" name="track" pos="0 -3 0.3" xyaxes="1 0 0 0 0 1" />
+      <geom name="torso_geom" pos="0 0 0" size="0.25" type="sphere" />
+      <joint armature="0" damping="0" limited="false" margin="0.01" name="root" pos="0 0 0" type="free" />
+      <body name="front_left_leg" pos="0 0 0">
+        <geom fromto="0.0 0.0 0.0 0.2 0.2 0.0" name="aux_1_geom" size="0.08" type="capsule" />
+        <body name="aux_1" pos="0.2 0.2 0">
+          <joint axis="0 0 1" name="hip_1" pos="0.0 0.0 0.0" range="-30 30" type="hinge" />
+          <geom fromto="0.0 0.0 0.0 0.2 0.2 0.0" name="left_leg_geom" size="0.08" type="capsule" />
+          <body pos="0.2 0.2 0">
+            <joint axis="-1 1 0" name="ankle_1" pos="0.0 0.0 0.0" range="30 70" type="hinge" />
+            <geom fromto="0.0 0.0 0.0 0.4 0.4 0.0" name="left_ankle_geom" rgba="1 0 0 1" size="0.08" type="capsule" />
+          </body>
+        </body>
+      </body>
+      <body name="front_right_leg" pos="0 0 0">
+        <geom fromto="0.0 0.0 0.0 -0.2 0.2 0.0" name="aux_2_geom" size="0.08" type="capsule" />
+        <body name="aux_2" pos="-0.2 0.2 0">
+          <joint axis="0 0 1" name="hip_2" pos="0.0 0.0 0.0" range="-30 30" type="hinge" />
+          <geom fromto="0.0 0.0 0.0 -0.2 0.2 0.0" name="right_leg_geom" size="0.08" type="capsule" />
+          <body pos="-0.2 0.2 0">
+            <joint axis="1 1 0" name="ankle_2" pos="0.0 0.0 0.0" range="-70 -30" type="hinge" />
+            <geom fromto="0.0 0.0 0.0 -0.4 0.4 0.0" name="right_ankle_geom" size="0.08" type="capsule" />
+          </body>
+        </body>
+      </body>
+      <body name="back_leg" pos="0 0 0">
+        <geom fromto="0.0 0.0 0.0 -0.2 -0.2 0.0" name="aux_3_geom" size="0.08" type="capsule" />
+        <body name="aux_3" pos="-0.2 -0.2 0">
+          <joint axis="0 0 1" name="hip_3" pos="0.0 0.0 0.0" range="-30 30" type="hinge" />
+          <geom fromto="0.0 0.0 0.0 -0.2 -0.2 0.0" name="back_leg_geom" size="0.08" type="capsule" />
+          <body pos="-0.2 -0.2 0">
+            <joint axis="-1 1 0" name="ankle_3" pos="0.0 0.0 0.0" range="-70 -30" type="hinge" />
+            <geom fromto="0.0 0.0 0.0 -0.4 -0.4 0.0" name="third_ankle_geom" size="0.08" type="capsule" />
+          </body>
+        </body>
+      </body>
+      <body name="right_back_leg" pos="0 0 0">
+        <geom fromto="0.0 0.0 0.0 0.2 -0.2 0.0" name="aux_4_geom" size="0.08" type="capsule" />
+        <body name="aux_4" pos="0.2 -0.2 0">
+          <joint axis="0 0 1" name="hip_4" pos="0.0 0.0 0.0" range="-30 30" type="hinge" />
+          <geom fromto="0.0 0.0 0.0 0.2 -0.2 0.0" name="rightback_leg_geom" size="0.08" type="capsule" />
+          <body pos="0.2 -0.2 0">
+            <joint axis="1 1 0" name="ankle_4" pos="0.0 0.0 0.0" range="30 70" type="hinge" />
+            <geom fromto="0.0 0.0 0.0 0.4 -0.4 0.0" name="fourth_ankle_geom" rgba="0 0 1 1" size="0.08" type="capsule" />
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="goal" pos="0 0 0">
+        <geom name="goal_geo" pos="0 0 .05" rgba="1 0 0 0.5" size="1.500000 1.500000 0.06" type="box" />
+    </body>
+    <body name="start" pos="0 0 0">
+        <geom name="start_geo" pos="0 0 .05" rgba="0 1 0 0.5" size="1.500000 1.500000 0.06" type="box" />
+    </body>
+    <body name="firs" pos="0 0 0">
+        <geom name="first_geo" pos="0 0 .05" rgba="0 0 1 0.5" size="1.500000 1.500000 0.06" type="box" />
+    </body>
+    <body name="second" pos="0 0 0">
+        <geom name="second_geo" pos="0 0 .05" rgba="0.5 0.5 0 0.5" size="1.500000 1.500000 0.06" type="box" />
+    </body>
+  <geom conaffinity="1" contype="1" material="" name="block_0_0" pos="-3.000000 3.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_0_1" pos="0.000000 3.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_0_2" pos="3.000000 3.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_0_3" pos="6.000000 3.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_0_4" pos="9.000000 3.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_1_4" pos="9.000000 0.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_2_0" pos="-3.000000 -3.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_2_1" pos="0.000000 -3.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_2_2" pos="3.000000 -3.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_2_4" pos="9.000000 -3.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_3_0" pos="-3.000000 -6.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_3_4" pos="9.000000 -6.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_4_0" pos="-3.000000 -9.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_4_1" pos="0.000000 -9.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_4_2" pos="3.000000 -9.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_4_3" pos="6.000000 -9.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /><geom conaffinity="1" contype="1" material="" name="block_4_4" pos="9.000000 -9.000000 1.000000" rgba="0.4 0.4 0.4 1" size="1.500000 1.500000 1.000000" type="box" /></worldbody>
+  <actuator>
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="150" joint="hip_4" />
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="150" joint="ankle_4" />
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="150" joint="hip_1" />
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="150" joint="ankle_1" />
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="150" joint="hip_2" />
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="150" joint="ankle_2" />
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="150" joint="hip_3" />
+    <motor ctrllimited="true" ctrlrange="-1.0 1.0" gear="150" joint="ankle_3" />
+  </actuator>
+<contact><pair geom1="torso_geom" geom2="block_0_0" /><pair geom1="aux_1_geom" geom2="block_0_0" /><pair geom1="left_leg_geom" geom2="block_0_0" /><pair geom1="left_ankle_geom" geom2="block_0_0" /><pair geom1="aux_2_geom" geom2="block_0_0" /><pair geom1="right_leg_geom" geom2="block_0_0" /><pair geom1="right_ankle_geom" geom2="block_0_0" /><pair geom1="aux_3_geom" geom2="block_0_0" /><pair geom1="back_leg_geom" geom2="block_0_0" /><pair geom1="third_ankle_geom" geom2="block_0_0" /><pair geom1="aux_4_geom" geom2="block_0_0" /><pair geom1="rightback_leg_geom" geom2="block_0_0" /><pair geom1="fourth_ankle_geom" geom2="block_0_0" /><pair geom1="torso_geom" geom2="block_0_1" /><pair geom1="aux_1_geom" geom2="block_0_1" /><pair geom1="left_leg_geom" geom2="block_0_1" /><pair geom1="left_ankle_geom" geom2="block_0_1" /><pair geom1="aux_2_geom" geom2="block_0_1" /><pair geom1="right_leg_geom" geom2="block_0_1" /><pair geom1="right_ankle_geom" geom2="block_0_1" /><pair geom1="aux_3_geom" geom2="block_0_1" /><pair geom1="back_leg_geom" geom2="block_0_1" /><pair geom1="third_ankle_geom" geom2="block_0_1" /><pair geom1="aux_4_geom" geom2="block_0_1" /><pair geom1="rightback_leg_geom" geom2="block_0_1" /><pair geom1="fourth_ankle_geom" geom2="block_0_1" /><pair geom1="torso_geom" geom2="block_0_2" /><pair geom1="aux_1_geom" geom2="block_0_2" /><pair geom1="left_leg_geom" geom2="block_0_2" /><pair geom1="left_ankle_geom" geom2="block_0_2" /><pair geom1="aux_2_geom" geom2="block_0_2" /><pair geom1="right_leg_geom" geom2="block_0_2" /><pair geom1="right_ankle_geom" geom2="block_0_2" /><pair geom1="aux_3_geom" geom2="block_0_2" /><pair geom1="back_leg_geom" geom2="block_0_2" /><pair geom1="third_ankle_geom" geom2="block_0_2" /><pair geom1="aux_4_geom" geom2="block_0_2" /><pair geom1="rightback_leg_geom" geom2="block_0_2" /><pair geom1="fourth_ankle_geom" geom2="block_0_2" /><pair geom1="torso_geom" geom2="block_0_3" /><pair geom1="aux_1_geom" geom2="block_0_3" /><pair geom1="left_leg_geom" geom2="block_0_3" /><pair geom1="left_ankle_geom" geom2="block_0_3" /><pair geom1="aux_2_geom" geom2="block_0_3" /><pair geom1="right_leg_geom" geom2="block_0_3" /><pair geom1="right_ankle_geom" geom2="block_0_3" /><pair geom1="aux_3_geom" geom2="block_0_3" /><pair geom1="back_leg_geom" geom2="block_0_3" /><pair geom1="third_ankle_geom" geom2="block_0_3" /><pair geom1="aux_4_geom" geom2="block_0_3" /><pair geom1="rightback_leg_geom" geom2="block_0_3" /><pair geom1="fourth_ankle_geom" geom2="block_0_3" /><pair geom1="torso_geom" geom2="block_0_4" /><pair geom1="aux_1_geom" geom2="block_0_4" /><pair geom1="left_leg_geom" geom2="block_0_4" /><pair geom1="left_ankle_geom" geom2="block_0_4" /><pair geom1="aux_2_geom" geom2="block_0_4" /><pair geom1="right_leg_geom" geom2="block_0_4" /><pair geom1="right_ankle_geom" geom2="block_0_4" /><pair geom1="aux_3_geom" geom2="block_0_4" /><pair geom1="back_leg_geom" geom2="block_0_4" /><pair geom1="third_ankle_geom" geom2="block_0_4" /><pair geom1="aux_4_geom" geom2="block_0_4" /><pair geom1="rightback_leg_geom" geom2="block_0_4" /><pair geom1="fourth_ankle_geom" geom2="block_0_4" /><pair geom1="torso_geom" geom2="block_1_4" /><pair geom1="aux_1_geom" geom2="block_1_4" /><pair geom1="left_leg_geom" geom2="block_1_4" /><pair geom1="left_ankle_geom" geom2="block_1_4" /><pair geom1="aux_2_geom" geom2="block_1_4" /><pair geom1="right_leg_geom" geom2="block_1_4" /><pair geom1="right_ankle_geom" geom2="block_1_4" /><pair geom1="aux_3_geom" geom2="block_1_4" /><pair geom1="back_leg_geom" geom2="block_1_4" /><pair geom1="third_ankle_geom" geom2="block_1_4" /><pair geom1="aux_4_geom" geom2="block_1_4" /><pair geom1="rightback_leg_geom" geom2="block_1_4" /><pair geom1="fourth_ankle_geom" geom2="block_1_4" /><pair geom1="torso_geom" geom2="block_2_0" /><pair geom1="aux_1_geom" geom2="block_2_0" /><pair geom1="left_leg_geom" geom2="block_2_0" /><pair geom1="left_ankle_geom" geom2="block_2_0" /><pair geom1="aux_2_geom" geom2="block_2_0" /><pair geom1="right_leg_geom" geom2="block_2_0" /><pair geom1="right_ankle_geom" geom2="block_2_0" /><pair geom1="aux_3_geom" geom2="block_2_0" /><pair geom1="back_leg_geom" geom2="block_2_0" /><pair geom1="third_ankle_geom" geom2="block_2_0" /><pair geom1="aux_4_geom" geom2="block_2_0" /><pair geom1="rightback_leg_geom" geom2="block_2_0" /><pair geom1="fourth_ankle_geom" geom2="block_2_0" /><pair geom1="torso_geom" geom2="block_2_1" /><pair geom1="aux_1_geom" geom2="block_2_1" /><pair geom1="left_leg_geom" geom2="block_2_1" /><pair geom1="left_ankle_geom" geom2="block_2_1" /><pair geom1="aux_2_geom" geom2="block_2_1" /><pair geom1="right_leg_geom" geom2="block_2_1" /><pair geom1="right_ankle_geom" geom2="block_2_1" /><pair geom1="aux_3_geom" geom2="block_2_1" /><pair geom1="back_leg_geom" geom2="block_2_1" /><pair geom1="third_ankle_geom" geom2="block_2_1" /><pair geom1="aux_4_geom" geom2="block_2_1" /><pair geom1="rightback_leg_geom" geom2="block_2_1" /><pair geom1="fourth_ankle_geom" geom2="block_2_1" /><pair geom1="torso_geom" geom2="block_2_2" /><pair geom1="aux_1_geom" geom2="block_2_2" /><pair geom1="left_leg_geom" geom2="block_2_2" /><pair geom1="left_ankle_geom" geom2="block_2_2" /><pair geom1="aux_2_geom" geom2="block_2_2" /><pair geom1="right_leg_geom" geom2="block_2_2" /><pair geom1="right_ankle_geom" geom2="block_2_2" /><pair geom1="aux_3_geom" geom2="block_2_2" /><pair geom1="back_leg_geom" geom2="block_2_2" /><pair geom1="third_ankle_geom" geom2="block_2_2" /><pair geom1="aux_4_geom" geom2="block_2_2" /><pair geom1="rightback_leg_geom" geom2="block_2_2" /><pair geom1="fourth_ankle_geom" geom2="block_2_2" /><pair geom1="torso_geom" geom2="block_2_4" /><pair geom1="aux_1_geom" geom2="block_2_4" /><pair geom1="left_leg_geom" geom2="block_2_4" /><pair geom1="left_ankle_geom" geom2="block_2_4" /><pair geom1="aux_2_geom" geom2="block_2_4" /><pair geom1="right_leg_geom" geom2="block_2_4" /><pair geom1="right_ankle_geom" geom2="block_2_4" /><pair geom1="aux_3_geom" geom2="block_2_4" /><pair geom1="back_leg_geom" geom2="block_2_4" /><pair geom1="third_ankle_geom" geom2="block_2_4" /><pair geom1="aux_4_geom" geom2="block_2_4" /><pair geom1="rightback_leg_geom" geom2="block_2_4" /><pair geom1="fourth_ankle_geom" geom2="block_2_4" /><pair geom1="torso_geom" geom2="block_3_0" /><pair geom1="aux_1_geom" geom2="block_3_0" /><pair geom1="left_leg_geom" geom2="block_3_0" /><pair geom1="left_ankle_geom" geom2="block_3_0" /><pair geom1="aux_2_geom" geom2="block_3_0" /><pair geom1="right_leg_geom" geom2="block_3_0" /><pair geom1="right_ankle_geom" geom2="block_3_0" /><pair geom1="aux_3_geom" geom2="block_3_0" /><pair geom1="back_leg_geom" geom2="block_3_0" /><pair geom1="third_ankle_geom" geom2="block_3_0" /><pair geom1="aux_4_geom" geom2="block_3_0" /><pair geom1="rightback_leg_geom" geom2="block_3_0" /><pair geom1="fourth_ankle_geom" geom2="block_3_0" /><pair geom1="torso_geom" geom2="block_3_4" /><pair geom1="aux_1_geom" geom2="block_3_4" /><pair geom1="left_leg_geom" geom2="block_3_4" /><pair geom1="left_ankle_geom" geom2="block_3_4" /><pair geom1="aux_2_geom" geom2="block_3_4" /><pair geom1="right_leg_geom" geom2="block_3_4" /><pair geom1="right_ankle_geom" geom2="block_3_4" /><pair geom1="aux_3_geom" geom2="block_3_4" /><pair geom1="back_leg_geom" geom2="block_3_4" /><pair geom1="third_ankle_geom" geom2="block_3_4" /><pair geom1="aux_4_geom" geom2="block_3_4" /><pair geom1="rightback_leg_geom" geom2="block_3_4" /><pair geom1="fourth_ankle_geom" geom2="block_3_4" /><pair geom1="torso_geom" geom2="block_4_0" /><pair geom1="aux_1_geom" geom2="block_4_0" /><pair geom1="left_leg_geom" geom2="block_4_0" /><pair geom1="left_ankle_geom" geom2="block_4_0" /><pair geom1="aux_2_geom" geom2="block_4_0" /><pair geom1="right_leg_geom" geom2="block_4_0" /><pair geom1="right_ankle_geom" geom2="block_4_0" /><pair geom1="aux_3_geom" geom2="block_4_0" /><pair geom1="back_leg_geom" geom2="block_4_0" /><pair geom1="third_ankle_geom" geom2="block_4_0" /><pair geom1="aux_4_geom" geom2="block_4_0" /><pair geom1="rightback_leg_geom" geom2="block_4_0" /><pair geom1="fourth_ankle_geom" geom2="block_4_0" /><pair geom1="torso_geom" geom2="block_4_1" /><pair geom1="aux_1_geom" geom2="block_4_1" /><pair geom1="left_leg_geom" geom2="block_4_1" /><pair geom1="left_ankle_geom" geom2="block_4_1" /><pair geom1="aux_2_geom" geom2="block_4_1" /><pair geom1="right_leg_geom" geom2="block_4_1" /><pair geom1="right_ankle_geom" geom2="block_4_1" /><pair geom1="aux_3_geom" geom2="block_4_1" /><pair geom1="back_leg_geom" geom2="block_4_1" /><pair geom1="third_ankle_geom" geom2="block_4_1" /><pair geom1="aux_4_geom" geom2="block_4_1" /><pair geom1="rightback_leg_geom" geom2="block_4_1" /><pair geom1="fourth_ankle_geom" geom2="block_4_1" /><pair geom1="torso_geom" geom2="block_4_2" /><pair geom1="aux_1_geom" geom2="block_4_2" /><pair geom1="left_leg_geom" geom2="block_4_2" /><pair geom1="left_ankle_geom" geom2="block_4_2" /><pair geom1="aux_2_geom" geom2="block_4_2" /><pair geom1="right_leg_geom" geom2="block_4_2" /><pair geom1="right_ankle_geom" geom2="block_4_2" /><pair geom1="aux_3_geom" geom2="block_4_2" /><pair geom1="back_leg_geom" geom2="block_4_2" /><pair geom1="third_ankle_geom" geom2="block_4_2" /><pair geom1="aux_4_geom" geom2="block_4_2" /><pair geom1="rightback_leg_geom" geom2="block_4_2" /><pair geom1="fourth_ankle_geom" geom2="block_4_2" /><pair geom1="torso_geom" geom2="block_4_3" /><pair geom1="aux_1_geom" geom2="block_4_3" /><pair geom1="left_leg_geom" geom2="block_4_3" /><pair geom1="left_ankle_geom" geom2="block_4_3" /><pair geom1="aux_2_geom" geom2="block_4_3" /><pair geom1="right_leg_geom" geom2="block_4_3" /><pair geom1="right_ankle_geom" geom2="block_4_3" /><pair geom1="aux_3_geom" geom2="block_4_3" /><pair geom1="back_leg_geom" geom2="block_4_3" /><pair geom1="third_ankle_geom" geom2="block_4_3" /><pair geom1="aux_4_geom" geom2="block_4_3" /><pair geom1="rightback_leg_geom" geom2="block_4_3" /><pair geom1="fourth_ankle_geom" geom2="block_4_3" /><pair geom1="torso_geom" geom2="block_4_4" /><pair geom1="aux_1_geom" geom2="block_4_4" /><pair geom1="left_leg_geom" geom2="block_4_4" /><pair geom1="left_ankle_geom" geom2="block_4_4" /><pair geom1="aux_2_geom" geom2="block_4_4" /><pair geom1="right_leg_geom" geom2="block_4_4" /><pair geom1="right_ankle_geom" geom2="block_4_4" /><pair geom1="aux_3_geom" geom2="block_4_4" /><pair geom1="back_leg_geom" geom2="block_4_4" /><pair geom1="third_ankle_geom" geom2="block_4_4" /><pair geom1="aux_4_geom" geom2="block_4_4" /><pair geom1="rightback_leg_geom" geom2="block_4_4" /><pair geom1="fourth_ankle_geom" geom2="block_4_4" /><pair geom1="torso_geom" geom2="floor" /><pair geom1="aux_1_geom" geom2="floor" /><pair geom1="left_leg_geom" geom2="floor" /><pair geom1="left_ankle_geom" geom2="floor" /><pair geom1="aux_2_geom" geom2="floor" /><pair geom1="right_leg_geom" geom2="floor" /><pair geom1="right_ankle_geom" geom2="floor" /><pair geom1="aux_3_geom" geom2="floor" /><pair geom1="back_leg_geom" geom2="floor" /><pair geom1="third_ankle_geom" geom2="floor" /><pair geom1="aux_4_geom" geom2="floor" /><pair geom1="rightback_leg_geom" geom2="floor" /><pair geom1="fourth_ankle_geom" geom2="floor" /></contact></mujoco>

@@ -1,0 +1,27 @@
+
+
+Smoothness: 1
+Architecture: QuantrupedMultiEnv_Centralized - Mean: 99.08 & 0.971 & 15.87 - Std: (22.48) & & (1.9) 
+Architecture: QuantrupedMultiEnv_FullyDecentral - Mean: 104.47 & 0.993 & 8.43 - Std: (19.45) & & (1.09) 
+Architecture: QuantrupedMultiEnv_Hierarchical - Mean: 90.01 & 0.895 & 16.7 - Std: (31.08) & & (2.12) 
+Architecture: QuantrupedMultiEnv_HierarchicalFullyDecentralized - Mean: 99.15 & 0.943 & 4.21 - Std: (25.68) & & (1.07) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchical - Mean: 97.92 & 0.95 & 15.89 - Std: (28.78) & & (2.07) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchicalFullyDecentralized - Mean: 103.72 & 0.985 & 5.14 - Std: (20.81) & & (1.1) 
+
+
+Smoothness: 0.8
+Architecture: QuantrupedMultiEnv_Centralized - Mean: 97.16 & 0.965 & 15.87 - Std: (23.57) & & (2.12) 
+Architecture: QuantrupedMultiEnv_FullyDecentral - Mean: 103.12 & 0.988 & 8.39 - Std: (19.94) & & (1.05) 
+Architecture: QuantrupedMultiEnv_Hierarchical - Mean: 89.15 & 0.911 & 16.59 - Std: (30.79) & & (1.94) 
+Architecture: QuantrupedMultiEnv_HierarchicalFullyDecentralized - Mean: 97.34 & 0.949 & 4.2 - Std: (26.59) & & (1.08) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchical - Mean: 99.28 & 0.956 & 15.72 - Std: (26.9) & & (2.0) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchicalFullyDecentralized - Mean: 104.69 & 0.993 & 5.11 - Std: (19.64) & & (1.08) 
+
+
+Smoothness: 0.6
+Architecture: QuantrupedMultiEnv_Centralized - Mean: 94.55 & 0.932 & 15.77 - Std: (25.36) & & (1.95) 
+Architecture: QuantrupedMultiEnv_FullyDecentral - Mean: 99.41 & 0.963 & 8.38 - Std: (21.86) & & (1.09) 
+Architecture: QuantrupedMultiEnv_Hierarchical - Mean: 83.56 & 0.836 & 16.46 - Std: (33.91) & & (2.0) 
+Architecture: QuantrupedMultiEnv_HierarchicalFullyDecentralized - Mean: 88.76 & 0.826 & 4.25 - Std: (28.85) & & (1.07) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchical - Mean: 93.07 & 0.879 & 15.79 - Std: (29.68) & & (1.99) 
+Architecture: QuantrupedMultiEnv_FullyDecentralizedHierarchicalFullyDecentralized - Mean: 96.71 & 0.9 & 5.13 - Std: (25.35) & & (1.05) 
