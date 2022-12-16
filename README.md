@@ -1,6 +1,6 @@
 # HDDRL
 Hierarchical Decentralized Deep Reinforcement Learning
-
+Status: Archive (code is provided as-is, no updates expected)
 
 **Figure:** Visualization of the compared architectures:
 
