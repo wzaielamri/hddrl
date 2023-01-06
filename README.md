@@ -36,7 +36,7 @@ pip install -e .
 ```
 @article{wzaielamri_HDRL,
   title={Hierarchical Decentralized Deep Reinforcement Learning Architecture for a Simulated Four-Legged Agent.},
-  author={Wadhah Zai El Amri, Luca Hermes, Malte Schilling},
+  author={Wadhah Zai El Amri and Luca Hermes and Malte Schilling},
   journal={Proc. of 8th International Online & Onsite Conference on Machine Learning, Optimization, and Data Science.},
   year={2022}
 }
